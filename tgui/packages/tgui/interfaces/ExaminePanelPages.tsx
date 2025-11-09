@@ -138,26 +138,20 @@ export const FlavorTextPage = (props) => {
   );
 };
 
-export const ImageGalleryPage = (props) => {
+export const ImageGalleryPage = () => {
   const { data } = useBackend<ExaminePanelData>();
-  const {
-    img_gallery,
-    nsfw_img_gallery,
-    is_naked,
-  } = data;
+  const { img_gallery, nsfw_img_gallery, is_naked } = data;
 
   const [galleryMode, setGalleryMode] = useState<'SFW' | 'NSFW'>('SFW');
 
-  const images = galleryMode === 'NSFW'
-    ? nsfw_img_gallery || []
-    : img_gallery || [];
+  const images =
+    galleryMode === 'NSFW' ? nsfw_img_gallery || [] : img_gallery || [];
 
   return (
     <Section
       title="Image Gallery"
-      scrollable
       fill
-      preserveWhitespace
+      scrollable
       buttons={
         <>
           <Button
@@ -171,11 +165,11 @@ export const ImageGalleryPage = (props) => {
           </Button>
           <Button
             selected={galleryMode === 'NSFW'}
+            disabled={!is_naked || !nsfw_img_gallery}
             bold={galleryMode === 'NSFW'}
             onClick={() => setGalleryMode('NSFW')}
             textAlign="center"
             minWidth="60px"
-            disabled={!is_naked || !nsfw_img_gallery?.length}
           >
             NSFW
           </Button>

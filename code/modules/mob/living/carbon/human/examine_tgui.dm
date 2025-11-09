@@ -63,6 +63,7 @@
 		if(!obscured)
 			headshot += holder.headshot_link
 			img_gallery = holder.img_gallery
+			nsfw_img_gallery = holder.nsfw_img_gallery
 		if(!holder.headshot_link)
 			headshot = "headshot_red.png"
 
