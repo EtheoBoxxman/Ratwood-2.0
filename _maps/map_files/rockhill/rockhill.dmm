@@ -12404,6 +12404,17 @@
 /obj/structure/chair/bench,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/outdoors/town/rockhill)
+"dUA" = (
+/obj/structure/closet/crate/chest/gold{
+	lockid = "church";
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/roguecoin/copper/pile,
+/obj/effect/spawner/lootdrop/cheap_jewelry_spawner,
+/obj/item/roguecoin/gold/pile,
+/turf/open/floor/rogue/church,
+/area/rogue/indoors/town/church)
 "dUQ" = (
 /obj/structure/fluff/walldeco/church/line,
 /turf/open/water/bath,
@@ -26050,8 +26061,9 @@
 /turf/open/floor/rogue/grass,
 /area/rogue/outdoors/rtfield/rockhill)
 "igo" = (
-/turf/closed/wall/mineral/rogue/tent,
-/area/rogue/outdoors/bograt/above)
+/obj/machinery/light/rogue/torchholder/l,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/rtfield/rockhill)
 "igw" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/rogue/cobble/mossy,
@@ -37454,10 +37466,6 @@
 	},
 /turf/open/floor/carpet/inn,
 /area/rogue/indoors/town/manor/rockhill)
-"lTS" = (
-/obj/effect/landmark/quest_spawner/medium,
-/turf/open/floor/rogue/ruinedwood/spiral,
-/area/rogue/indoors)
 "lTZ" = (
 /obj/machinery/light/rogue/wallfire/candle/blue/l,
 /turf/open/floor/rogue/ruinedwood/spiral,
@@ -40024,9 +40032,8 @@
 /turf/open/floor/rogue/cobble/mossy,
 /area/rogue/indoors/town/church)
 "mHE" = (
-/obj/machinery/light/rogue/torchholder/l,
-/turf/open/floor/rogue/grass,
-/area/rogue/outdoors/rtfield/rockhill)
+/turf/closed/wall/mineral/rogue/tent,
+/area/rogue/outdoors/bograt/above)
 "mHP" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/water/swamp,
@@ -49494,6 +49501,12 @@
 	},
 /turf/open/floor/carpet/red,
 /area/rogue/indoors/town/church/chapel)
+"pNH" = (
+/obj/structure/stairs{
+	dir = 8
+	},
+/turf/open/water/swamp/deep,
+/area/rogue/outdoors/bograt/west)
 "pNW" = (
 /obj/structure/fluff/railing/border{
 	dir = 6
@@ -51979,6 +51992,7 @@
 	},
 /obj/item/roguecoin/copper/pile,
 /obj/effect/spawner/lootdrop/cheap_jewelry_spawner,
+/obj/item/roguestatue/gold,
 /turf/open/floor/rogue/church,
 /area/rogue/indoors/town/church)
 "qDT" = (
@@ -65352,6 +65366,12 @@
 	},
 /area/rogue/indoors/town/tavern)
 "veb" = (
+/obj/structure/roguemachine/atm{
+	location_tag = "Mercenary House"
+	},
+/obj/structure/bars/passage/shutter{
+	redstone_id = "crier"
+	},
 /obj/structure/table/wood/poor/alt_alt{
 	color = "#C4A484"
 	},
@@ -65359,9 +65379,6 @@
 	broadcaster_tag = "Public Broadcaster";
 	dir = 4;
 	pixel_y = 8
-	},
-/obj/structure/roguemachine/atm{
-	location_tag = "Mercenary House"
 	},
 /turf/open/floor/rogue/tile/brownbrick,
 /area/rogue/indoors/town)
@@ -66744,11 +66761,9 @@
 /turf/open/transparent/openspace,
 /area/rogue/outdoors/town/rockhill)
 "vCh" = (
-/obj/structure/stairs{
-	dir = 8
-	},
-/turf/open/water/swamp/deep,
-/area/rogue/outdoors/bograt/west)
+/obj/effect/landmark/quest_spawner/medium,
+/turf/open/floor/rogue/ruinedwood/spiral,
+/area/rogue/indoors)
 "vCw" = (
 /obj/item/rogueore/gold,
 /obj/structure/closet/crate/chest/gold{
@@ -188597,7 +188612,7 @@ qCt
 buE
 qSA
 qSA
-vCh
+pNH
 qSA
 qSA
 qSA
@@ -245894,7 +245909,7 @@ wMB
 wMB
 wMB
 qvR
-mHE
+igo
 fxx
 qvR
 qvR
@@ -264629,7 +264644,7 @@ whb
 whb
 pAV
 eyV
-lTS
+vCh
 fBT
 jDb
 fBT
@@ -378836,7 +378851,7 @@ euP
 euP
 euP
 euP
-euP
+sdL
 esR
 jIq
 aqz
@@ -397446,7 +397461,7 @@ qDQ
 tML
 noB
 tML
-qDQ
+dUA
 kVf
 wJF
 xZg
@@ -406757,10 +406772,10 @@ kKp
 kKp
 kKp
 kKp
-igo
+mHE
 kKp
 kKp
-igo
+mHE
 kKp
 kKp
 kKp
@@ -407189,10 +407204,10 @@ kKp
 kKp
 kKp
 kKp
-igo
+mHE
 kKp
 kKp
-igo
+mHE
 kKp
 kKp
 kKp
@@ -408053,10 +408068,10 @@ kKp
 kKp
 kKp
 kKp
-igo
+mHE
 kKp
 kKp
-igo
+mHE
 kKp
 kKp
 kKp
@@ -408485,10 +408500,10 @@ kKp
 kKp
 kKp
 kKp
-igo
+mHE
 kKp
 kKp
-igo
+mHE
 kKp
 kKp
 kKp
@@ -408920,7 +408935,7 @@ kKp
 kKp
 kKp
 kKp
-igo
+mHE
 kKp
 kKp
 kKp
