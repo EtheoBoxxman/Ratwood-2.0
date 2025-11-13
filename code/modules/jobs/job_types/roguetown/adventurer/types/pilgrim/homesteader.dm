@@ -8,18 +8,12 @@
 	category_tags = list(CTAG_PILGRIM, CTAG_TOWNER)
 	subclass_social_rank = SOCIAL_RANK_PEASANT
 	subclass_stats = list(
-		STATKEY_WIL = 1,
 		STATKEY_STR = 1,
 		STATKEY_CON = 1,
 		STATKEY_INT = 2,
-		STATKEY_PER = 1,
-		STATKEY_SPD = 1,
-		STATKEY_LCK = 1
+		STATKEY_SPD = -1,
 	)
 
-	traits_applied = list(
-
-	)
 
 //	adaptive_name = FALSE
 
@@ -29,24 +23,22 @@
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/swimming = SKILL_LEVEL_JOURNEYMAN,
 
-		/datum/skill/combat/axes = SKILL_LEVEL_NOVICE,
-		/datum/skill/combat/unarmed = SKILL_LEVEL_NOVICE,
-		/datum/skill/combat/knives = SKILL_LEVEL_NOVICE,
-		/datum/skill/combat/wrestling = SKILL_LEVEL_NOVICE,,
-
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/medicine = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/sewing = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/tracking = SKILL_LEVEL_NOVICE,
+
 		/datum/skill/misc/sneaking = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/crafting = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/carpentry = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/masonry = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/engineering = SKILL_LEVEL_NOVICE,
+
 		/datum/skill/craft/traps = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/alchemy = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/tanning = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
+
 		/datum/skill/labor/farming = SKILL_LEVEL_NOVICE,
 		/datum/skill/labor/lumberjacking = SKILL_LEVEL_NOVICE,
 		/datum/skill/labor/fishing = SKILL_LEVEL_NOVICE,
@@ -58,12 +50,12 @@
 	// Homesteader cosmetic title selection
 	H.adjust_blindness(-3)
 	var/cosmetic_titles = list(
-	"Devotee", "Devotess", "Farmhand", "Farmwoman",
+	"Devotee", "Devotess",
 	"Fieldworker", "Fieldwoman", "Handiworker", "Handiwoman",
-	"Hedgefolk", "Homebody", "Homesteader", "Homesteadress",
+	"Hedgefolk", "Herbalist", "Homesteader", "Homesteadress",
 	"Householder", "Househusband", "Housewife",
 	"Laborer", "Laboress",
-	"Villager", "Villagewoman", "Woodcrafter", "Woodcraftess")
+	"Villager", "Villagewoman")
 	var/cosmetic_choice = input(H, "Select your cosmetic title!", "Cosmetic Titles") as anything in cosmetic_titles
 
 	switch(cosmetic_choice)
@@ -73,12 +65,6 @@
 		if("Devotess")
 			to_chat(H, span_notice("You are a Devotess, a pious peasant devoted to faith and community."))
 			H.mind.cosmetic_class_title = "Devotess"
-		if("Farmhand")
-			to_chat(H, span_notice("You are a Farmhand, a worker of the fields and crops."))
-			H.mind.cosmetic_class_title = "Farmhand"
-		if("Farmwoman")
-			to_chat(H, span_notice("You are a Farmwoman, a worker of the fields and crops."))
-			H.mind.cosmetic_class_title = "Farmwoman"
 		if("Fieldworker")
 			to_chat(H, span_notice("You are a Fieldworker, a laborer of fields and land."))
 			H.mind.cosmetic_class_title = "Fieldworker"
@@ -94,9 +80,9 @@
 		if("Hedgefolk")
 			to_chat(H, span_notice("You are Hedgefolk, a rural dweller of modest means."))
 			H.mind.cosmetic_class_title = "Hedgefolk"
-		if("Homebody")
-			to_chat(H, span_notice("You are a Homebody, content with hearth and home."))
-			H.mind.cosmetic_class_title = "Homebody"
+		if("Herbalist")
+			to_chat(H, span_notice("You are an Herbalist, skilled in plants and their remedies."))
+			H.mind.cosmetic_class_title = "Herbalist"
 		if("Homesteader")
 			to_chat(H, span_notice("You are a Homesteader, a settler and keeper of land."))
 			H.mind.cosmetic_class_title = "Homesteader"
@@ -124,12 +110,6 @@
 		if("Villagewoman")
 			to_chat(H, span_notice("You are a Villagewoman, common folk of the settlement."))
 			H.mind.cosmetic_class_title = "Villagewoman"
-		if("Woodcrafter")
-			to_chat(H, span_notice("You are a Woodcrafter, a skilled worker of wood."))
-			H.mind.cosmetic_class_title = "Woodcrafter"
-		if("Woodcraftess")
-			to_chat(H, span_notice("You are a Woodcraftess, a skilled worker of wood."))
-			H.mind.cosmetic_class_title = "Woodcraftess"
 
 	// STAT PACK SELECTION
 	var/stat_packs = list("Agile", "Bookworm", "Toned", "All-Rounded")
@@ -138,13 +118,14 @@
 	switch(stat_choice)
 		if("Agile")
 			to_chat(H, span_notice("You are agile and nimble."))
-			H.change_stat(STATKEY_SPD, 1)
+			H.change_stat(STATKEY_SPD, 2)
 			H.change_stat(STATKEY_WIL, -2)
 			H.change_stat(STATKEY_STR, -2) 
 			H.change_stat(STATKEY_CON, 1)
 		if("Bookworm")
 			to_chat(H, span_notice("You are learned and wise."))
-			H.change_stat(STATKEY_INT, 2)
+			H.change_stat(STATKEY_INT, 1)
+			H.change_stat(STATKEY_PER, 1)
 			H.change_stat(STATKEY_WIL, 1)
 			H.change_stat(STATKEY_STR, -2)
 			H.change_stat(STATKEY_CON, -2)
@@ -152,6 +133,7 @@
 			to_chat(H, span_notice("You are strong and hardy."))
 			H.change_stat(STATKEY_STR, 1)
 			H.change_stat(STATKEY_CON, 1)
+			H.change_stat(STATKEY_WIL, 1)
 			H.change_stat(STATKEY_INT, -1)
 			H.change_stat(STATKEY_SPD, -2)
 		if("All-Rounded")
@@ -182,7 +164,6 @@
 
 			// Thematic traits for Homesteading
 			ADD_TRAIT(H, TRAIT_HOMESTEAD_EXPERT, TRAIT_GENERIC)
-			ADD_TRAIT(H, TRAIT_SURVIVAL_EXPERT, TRAIT_GENERIC)
 			ADD_TRAIT(H, TRAIT_OUTDOORSMAN, TRAIT_GENERIC)
 			ADD_TRAIT(H, TRAIT_ALCHEMY_EXPERT, TRAIT_GENERIC)
 
@@ -316,10 +297,9 @@
 		var/expert_skill_name = input(H, "Choose one skill to EXPERT.", "Skill Selection") as anything in misc_skills + labor_skills + craft_skills
 		H.adjust_skillrank_up_to(misc_skills[expert_skill_name] || labor_skills[expert_skill_name] || craft_skills[expert_skill_name], SKILL_LEVEL_EXPERT, TRUE)
 
-		// Select two COMBAT skills to JOURNEYMAN
-		for(var/i in 1 to 2)
-			var/journeyman_combat_name = input(H, "Choose a COMBAT skill to JOURNEYMAN.", "Skill Selection") as anything in combat_skills
-			H.adjust_skillrank_up_to(combat_skills[journeyman_combat_name], SKILL_LEVEL_JOURNEYMAN, TRUE)
+		// Select one COMBAT skill to JOURNEYMAN
+		var/journeyman_combat_name = input(H, "Choose a COMBAT skill to JOURNEYMAN.", "Skill Selection") as anything in combat_skills
+		H.adjust_skillrank_up_to(combat_skills[journeyman_combat_name], SKILL_LEVEL_JOURNEYMAN, TRUE)
 
 		// Select two MISC/LABOR/CRAFT skills to JOURNEYMAN
 		for(var/i in 1 to 2)
