@@ -54,6 +54,9 @@
 	var/inherent_spell = null
 	var/summoning_emote = null
 
+	var/flight_capable = FALSE
+	var/flight_time = 2 SECONDS
+
 //As far as I am aware, you cannot pat out fire as a familiar at least not in time for it to not kill you, this seems fair.
 /mob/living/simple_animal/pet/familiar/fire_act(added, maxstacks)
 	. = ..()
@@ -65,6 +68,39 @@
 	ADD_TRAIT(src, TRAIT_CHUNKYFINGERS, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_INFINITE_STAMINA, TRAIT_GENERIC)
 	AddComponent(/datum/component/footstep, footstep_type)
+	if(flight_capable)
+		verbs += list(/mob/living/simple_animal/pet/familiar/proc/fly_up,
+		/mob/living/simple_animal/pet/familiar/proc/fly_down)
+
+/mob/living/simple_animal/pet/familiar/proc/fly_up()
+	set category = "Flight"
+	set name = "Fly Up"
+
+	if(src.pulledby != null)
+		to_chat(src, span_notice("I can't fly away while being grabbed!"))
+		return
+	src.visible_message(span_notice("[src] begins to ascend!"), span_notice("You take flight..."))
+	if(do_after(src, flight_time))
+		if(src.pulledby == null)
+			src.zMove(UP, TRUE)
+			to_chat(src, span_notice("I fly up."))
+		else
+			to_chat(src, span_notice("I can't fly away while being grabbed!"))
+
+/mob/living/simple_animal/pet/familiar/proc/fly_down()
+	set category = "Flight"
+	set name = "Fly Down"
+
+	if(src.pulledby != null)
+		to_chat(src, span_notice("I can't fly away while being grabbed!"))
+		return
+	src.visible_message(span_notice("[src] begins to descend!"), span_notice("You take flight..."))
+	if(do_after(src, flight_time))
+		if(src.pulledby == null)
+			src.zMove(DOWN, TRUE)
+			to_chat(src, span_notice("I fly down."))
+		else
+			to_chat(src, span_notice("I can't fly away while being grabbed!"))
 
 /mob/living/simple_animal/pet/familiar/proc/can_bite()
 	for(var/obj/item/grabbing/grab in grabbedby) //Grabbed by the mouth
@@ -211,6 +247,7 @@
 	inherent_spell = list(/obj/effect/proc_holder/spell/self/soothing_bloom)
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	movement_type = FLYING
+	flight_capable = TRUE
 	STASTR = 4
 	STACON = 11
 	STAWIL = 9
@@ -365,6 +402,7 @@
 	inherent_spell = list(/obj/effect/proc_holder/spell/self/starseers_cry)
 	pass_flags = PASSTABLE | PASSMOB
 	movement_type = FLYING
+	flight_capable = TRUE
 	STASTR = 4
 	STAPER = 11
 	STACON = 6
