@@ -73295,6 +73295,11 @@
 	icon = 'icons/roguetown/misc/structure.dmi';
 	aportalid = "RockhillRandom"
 	},
+/obj/structure/mineral_door/wood{
+	locked = 1;
+	max_integrity = 99999;
+	name = "Mountain Pass to Elsewhere"
+	},
 /turf/closed/wall/mineral/rogue/wooddark/horizontal,
 /area/rogue/under/cavewet)
 "wOS" = (
