@@ -143,17 +143,16 @@
 	var/used_limb = BODY_ZONE_CHEST
 	var/missing_nose = HAS_TRAIT(src, TRAIT_MISSING_NOSE)
 	var/obj/item/bodypart/affecting
-	var/target_zone = user.zone_selected
 	if(src.get_bodypart(BODY_ZONE_TAUR)) // respect taur bodies
-		if(target_zone == BODY_ZONE_L_LEG || target_zone == BODY_ZONE_R_LEG || target_zone == BODY_ZONE_PRECISE_L_FOOT || target_zone == BODY_ZONE_PRECISE_R_FOOT)
-			target_zone = BODY_ZONE_TAUR
-	affecting = get_bodypart(check_zone(target_zone))
-	if(target_zone && affecting)
-		if(target_zone in affecting.grabtargets)
-			if(missing_nose && target_zone == BODY_ZONE_PRECISE_NOSE)
+		if(user.zone_selected == BODY_ZONE_L_LEG || user.zone_selected == BODY_ZONE_R_LEG || user.zone_selected == BODY_ZONE_PRECISE_L_FOOT || user.zone_selected == BODY_ZONE_PRECISE_R_FOOT)
+			user.zone_selected = BODY_ZONE_TAUR
+	affecting = get_bodypart(check_zone(user.zone_selected))
+	if(user.zone_selected && affecting)
+		if(user.zone_selected in affecting.grabtargets)
+			if(missing_nose && user.zone_selected == BODY_ZONE_PRECISE_NOSE)
 				used_limb = BODY_ZONE_HEAD
 			else
-				used_limb = target_zone
+				used_limb = user.zone_selected
 		else
 			used_limb = affecting.body_zone
 	return used_limb
