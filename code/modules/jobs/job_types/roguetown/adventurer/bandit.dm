@@ -3,8 +3,8 @@
 	flag = BANDIT
 	department_flag = PEASANTS
 	faction = "Station"
-	total_positions = 7
-	spawn_positions = 7
+	total_positions = 3	//bare minimum of three on round start, regardless of garrison/holywarrior count
+	spawn_positions = 3
 	antag_job = TRUE
 	allowed_races = RACES_ALL_KINDS
 	tutorial = "Long ago you did a crime worthy of your bounty being hung on the wall outside of the local inn. You now live with your fellow freemen in the bog, and generally get up to no good."
@@ -27,6 +27,7 @@
 	advjob_examine = TRUE
 	always_show_on_latechoices = TRUE
 	job_reopens_slots_on_death = FALSE //no endless stream of bandits, unless the migration waves deem it so
+	job_traits = list(TRAIT_SELF_SUSTENANCE)
 	same_job_respawn_delay = 1 MINUTES
 	cmode_music = 'sound/music/cmode/antag/combat_deadlyshadows.ogg'
 	job_subclasses = list(
@@ -45,25 +46,27 @@
 		var/mob/living/carbon/human/H = L
 		if(!H.mind)
 			return
-		H.advsetup = 1
-		H.invisibility = INVISIBILITY_MAXIMUM
-		H.become_blind("advsetup")
 		H.ambushable = FALSE
+
+/datum/outfit/job/roguetown/bandit/pre_equip(mob/living/carbon/human/H)
+	. = ..()
+	H.verbs |= /mob/proc/haltyell_exhausting
 
 /datum/outfit/job/roguetown/bandit/post_equip(mob/living/carbon/human/H)
 	..()
-	var/datum/antagonist/new_antag = new /datum/antagonist/bandit()
-	H.mind.add_antag_datum(new_antag)
-	H.grant_language(/datum/language/thievescant)
-	addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, choose_name_popup), "BANDIT"), 5 SECONDS)
-	var/wanted = list("I am a notorious criminal", "I am a nobody")
-	var/wanted_choice = input("Are you a known criminal?") as anything in wanted
-	switch(wanted_choice)
-		if("I am a notorious criminal") //Extra challenge for those who want it
-			bandit_select_bounty(H)
-			ADD_TRAIT(H, TRAIT_KNOWNCRIMINAL, TRAIT_GENERIC)
-		if("I am a nobody") //Nothing ever happens
-			return
+	if(H.mind)
+		var/datum/antagonist/new_antag = new /datum/antagonist/bandit()
+		H.mind.add_antag_datum(new_antag)
+		H.grant_language(/datum/language/thievescant)
+		addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, choose_name_popup), "BANDIT"), 5 SECONDS)
+		var/wanted = list("I am a notorious criminal", "I am a nobody")
+		var/wanted_choice = input("Are you a known criminal?") as anything in wanted
+		switch(wanted_choice)
+			if("I am a notorious criminal") //Extra challenge for those who want it
+				bandit_select_bounty(H)
+				ADD_TRAIT(H, TRAIT_KNOWNCRIMINAL, TRAIT_GENERIC)
+			if("I am a nobody") //Nothing ever happens
+				return
 
 // Changed up proc from Wretch to suit bandits bit more
 /proc/bandit_select_bounty(mob/living/carbon/human/H)
@@ -87,3 +90,24 @@
 	if (!my_crime)
 		my_crime = "Brigandry"
 	add_bounty(H.real_name, race, gender, descriptor_height, descriptor_body, descriptor_voice, bounty_total, FALSE, my_crime, bounty_poster)
+
+/proc/update_bandit_slots()
+	var/datum/job/bandit_job = SSjob.GetJob("Bandit")
+	if(!bandit_job)
+		return
+	var/banditcount = 0
+	for(var/datum/antagonist/bandit/A in GLOB.antagonists)
+		banditcount += 1
+	var/free_capacity = SSgamemode.get_antag_cap() - SSgamemode.get_antag_count() + banditcount	//Making use of our storyteller calculations for how many slots ought to be open for bandits at any point
+	free_capacity = max(free_capacity, 0)
+	// Baseline: 1 bandit slot if ANY antag capacity exists.
+	var/slots
+
+	if(free_capacity > 3)
+		slots = round(free_capacity)
+		slots = clamp(slots, 3, 6)	//max of 6 at any point
+		bandit_job.total_positions = slots
+		bandit_job.spawn_positions = slots
+	else
+		bandit_job.total_positions = 3
+		bandit_job.spawn_positions = 3
