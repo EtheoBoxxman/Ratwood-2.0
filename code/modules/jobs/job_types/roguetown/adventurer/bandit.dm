@@ -19,6 +19,7 @@
 	min_pq = 3
 	max_pq = null
 	round_contrib_points = 5
+	allowed_patrons = ALL_INHUMEN_PATRONS//YEAH!!! MURDER!!!
 
 	advclass_cat_rolls = list(CTAG_BANDIT = 20)
 	PQ_boost_divider = 10
@@ -37,7 +38,8 @@
 		/datum/advclass/knave,
 		/datum/advclass/roguemage,
 		/datum/advclass/sawbones,
-		/datum/advclass/sellsword
+		/datum/advclass/sellsword,
+		/datum/advclass/pioneer
 	)
 
 /datum/job/roguetown/bandit/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
@@ -62,10 +64,11 @@
 		var/wanted = list("I am a notorious criminal", "I am a nobody")
 		var/wanted_choice = input("Are you a known criminal?") as anything in wanted
 		switch(wanted_choice)
-			if("I am a notorious criminal") //Extra challenge for those who want it
+			if("I am a notorious criminal")//You get +1LCK.
 				bandit_select_bounty(H)
 				ADD_TRAIT(H, TRAIT_KNOWNCRIMINAL, TRAIT_GENERIC)
-			if("I am a nobody") //Nothing ever happens
+				H.change_stat(STATKEY_LCK, 2)
+			if("I am a nobody")//You lose out on the luck. Loser.
 				return
 
 // Changed up proc from Wretch to suit bandits bit more

@@ -5,7 +5,7 @@
 	allowed_races = RACES_ALL_KINDS
 	outfit = /datum/outfit/job/roguetown/bandit/pioneer
 	category_tags = list(CTAG_BANDIT)
-	maximum_possible_slots = 2 //they aren't on par with hedge knights SO WHY ARE THEY LIMITED GRAHHHHHHHHHHHH
+	maximum_possible_slots = 1//They're limited because they guys can LEVEL THE TOWN. RAAAAAAAAAA!!!!!!
 
 	subclass_stats = list(
 		STATKEY_INT = 3,
@@ -18,11 +18,6 @@
 
 /datum/outfit/job/roguetown/bandit/pioneer/pre_equip(mob/living/carbon/human/H)
 	..()
-	if(!istype(H.patron, /datum/patron/inhumen/matthios))
-		var/inputty = input(H, "Would you like to change your patron to Matthios?", "The Transactor calls", "No") as anything in list("Yes", "No")
-		if(inputty == "Yes")
-			to_chat(H, span_warning("My former deity has abandoned me.. Matthios is my new master."))
-			H.set_patron(/datum/patron/inhumen/matthios)
 	belt =	/obj/item/storage/belt/rogue/leather
 	head = /obj/item/clothing/head/roguetown/helmet/kettle
 	pants = /obj/item/clothing/under/roguetown/trou/leather
